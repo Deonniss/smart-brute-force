@@ -1,6 +1,7 @@
 package ru.golovin.sbf.mask;
 
 import lombok.RequiredArgsConstructor;
+import ru.golovin.sbf.Property;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -29,9 +30,9 @@ public class VirtualThreadMaskGenerator implements MaskGenerator {
                 for (int dictionaryCount : dictionaryCounts) {
                     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                         List<Mask> masks = new ArrayList<>();
-                        masks.addAll(Collections.nCopies(keyWordCount, new Mask(MaskType.KEY_WORD, Set.of())));
-                        masks.addAll(Collections.nCopies(specialCount, new Mask(MaskType.SPECIAL, Set.of())));
-                        masks.addAll(Collections.nCopies(dictionaryCount, new Mask(MaskType.DICTIONARY, Set.of())));
+                        masks.addAll(Collections.nCopies(keyWordCount, Mask.KEY_WORD));
+                        masks.addAll(Collections.nCopies(specialCount, Mask.SPECIAL));
+                        masks.addAll(Collections.nCopies(dictionaryCount, Mask.DICTIONARY));
                         Set<List<Mask>> permutations = new HashSet<>();
                         permuteUniqueIterative(masks, permutations, Comparator.comparing(Mask::toString));
                         allPermutations.addAll(permutations);
@@ -50,7 +51,7 @@ public class VirtualThreadMaskGenerator implements MaskGenerator {
             return List.of(fix);
         }
         int min = option.getMin();
-        int max = option.getMax() < 1 ? 3 : option.getMax(); // по умолчанию 3
+        int max = option.getMax() < 0 ? Property.getInstance().getDefaultMaxMaskAmount() : option.getMax();
         return IntStream.rangeClosed(min, max)
                 .boxed()
                 .toList();

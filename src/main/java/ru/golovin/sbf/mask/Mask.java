@@ -1,6 +1,19 @@
 package ru.golovin.sbf.mask;
 
-import java.util.Set;
+public enum Mask {
 
-public record Mask(MaskType type, Set<MaskOption> options) {
+    /**
+     * Маска ключевых слов. Которые будут обрабатываться в реальном времени
+     */
+    KEY_WORD,
+
+    /**
+     * Словарь заранее сгенерированных всех возможных последовательностей ограниченной длины
+     */
+    SPECIAL,
+
+    /**
+     * Словарь слабых паролей
+     */
+    DICTIONARY
 }
