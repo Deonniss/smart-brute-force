@@ -1,4 +1,6 @@
-import ru.golovin.sbf.Property;
+import ru.golovin.sbf.core.BruteforceGeneratorFacade;
+import ru.golovin.sbf.core.SmartBruteforceGenerator;
+import ru.golovin.sbf.core.SmartBruteforceGeneratorFacade;
 import ru.golovin.sbf.mask.*;
 
 import java.util.List;
@@ -12,20 +14,20 @@ public class Main {
                 .keyWordBlockAmount(
                         MaskGenerationOption.builder()
                                 .fix(-1)
-                                .max(2)
+                                .max(0)
                                 .min(0)
                                 .build()
                 )
                 .specialBlockAmount(
                         MaskGenerationOption.builder()
                                 .fix(-1)
-                                .max(1)
+                                .max(0)
                                 .min(0)
                                 .build()
                 )
                 .dictionaryBlockAmount(
                         MaskGenerationOption.builder()
-                                .fix(-1)
+                                .fix(1)
                                 .max(0)
                                 .min(0)
                                 .build()
@@ -38,5 +40,15 @@ public class Main {
         Set<List<Mask>> masks = virtualThread3MaskGenerator.generate();
         System.out.println(masks);
         System.out.println(masks.size());
+
+
+        BruteforceGeneratorFacade bruteforceGeneratorFacade = new SmartBruteforceGeneratorFacade(
+                new SmartBruteforceGenerator()
+        );
+        List<String> result = bruteforceGeneratorFacade.generate(masks);
+        System.out.println(result);
+        System.out.println(result.size());
+
+
     }
 }

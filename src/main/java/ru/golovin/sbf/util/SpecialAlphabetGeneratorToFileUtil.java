@@ -18,6 +18,10 @@ public final class SpecialAlphabetGeneratorToFileUtil {
         alphabet = sb.toString().toCharArray();
     }
 
+    public static void main(String[] args) {
+        generate("dictionary/spec-4.lst", 4);
+    }
+
     public static void generate(String outputFile, int maxDepth) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
             generateCombinations("", 0, maxDepth, writer);

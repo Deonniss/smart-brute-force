@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.aparapi:aparapi:3.0.2")
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
 }
