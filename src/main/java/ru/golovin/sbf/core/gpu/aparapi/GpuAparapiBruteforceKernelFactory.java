@@ -4,6 +4,7 @@ public final class GpuAparapiBruteforceKernelFactory {
 
     private GpuAparapiBruteforceKernelFactory() {}
 
+    //todo добавить kernel для 2, 3, 4, 5 файлов
     public static GpuAparapiBruteforceKernel create(GpuAparapiBruteforceParamContainer c) {
         return switch (c.getFileCount()) {
             case 3 -> new GpuAparapiBruteforceKernel(

@@ -2,7 +2,6 @@ package ru.golovin.sbf.core.gpu.aparapi;
 
 import com.aparapi.Range;
 import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarStyle;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +14,8 @@ public class GpuAparapiBruteforceKernelExecutor {
     public static void main(String[] args) throws IOException {
         start(
                 GpuAparapiBruteforceParamContainerUtilCreator.getParamContainer(
-                        List.of("dictionary/all.lst", "dictionary/spec-2.lst", "dictionary/spec-1.lst"),
-                        "{thtajhlibh///"
+                        List.of("dictionary/spec-2.lst", "dictionary/spec-2.lst", "dictionary/spec-2.lst"),
+                        "AAA"
                 )
         );
     }
@@ -32,21 +31,22 @@ public class GpuAparapiBruteforceKernelExecutor {
                 kernel.setOffset(offset);
                 kernel.execute(range);
                 pb.step();
-                printFoundLines(container);
+                if (printFoundLines(container)) {
+                    pb.stepTo(pb.getMax());
+                    break;
+                }
+
             }
         }
         kernel.dispose();
     }
 
-    public static void printFoundLines(GpuAparapiBruteforceParamContainer container) {
+    public static boolean printFoundLines(GpuAparapiBruteforceParamContainer container) {
         int[] result = container.getResult();
         if (result[0] != 1) {
-            return;
+            return false;
         }
         int fileCount = container.getFileCount();
-        if (fileCount < 3 || fileCount > 5 || result.length < fileCount + 1) {
-            return;
-        }
         var charArrays = container.getFileCharArrays();
         var maxLengths = container.getFileMaxLengths();
         var lineLengths = container.getFileLineLengths();
@@ -59,5 +59,6 @@ public class GpuAparapiBruteforceKernelExecutor {
             String foundLine = new String(fileChars, offset, length);
             System.out.println("file-" + (fileIndex + 1) + ", line " + lineIndex + ": " + foundLine);
         }
+        return true;
     }
 }

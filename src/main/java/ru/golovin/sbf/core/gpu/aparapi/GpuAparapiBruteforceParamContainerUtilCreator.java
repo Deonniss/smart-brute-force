@@ -12,6 +12,8 @@ public final class GpuAparapiBruteforceParamContainerUtilCreator {
     }
 
     public static GpuAparapiBruteforceParamContainer getParamContainer(List<String> filePaths, String target) throws IOException {
+
+        //todo валидация на кол-во filePaths
         List<List<String>> fileLineList = getFileLineList(filePaths);
         List<Integer> fileLengths = new ArrayList<>();
         List<Integer> fileMaxLengths = new ArrayList<>();
