@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation("com.aparapi:aparapi:3.0.2")
+    implementation 'me.tongfei:progressbar:0.10.1'
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
 }

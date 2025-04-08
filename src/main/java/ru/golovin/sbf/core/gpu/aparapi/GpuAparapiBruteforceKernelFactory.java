@@ -12,7 +12,7 @@ public final class GpuAparapiBruteforceKernelFactory {
                     c.getFileCharArrays().get(2), c.getFileLengths().get(2), c.getFileMaxLengths().get(2), c.getFileLineLengths().get(2),
                     c.getTarget().toCharArray(), c.getTarget().length(), c.getResult()
             );
-            default -> null;
+            default -> throw new IllegalStateException("Unexpected value: " + c.getFileCount());
         };
     }
 }
