@@ -37,7 +37,7 @@ public class Main {
 
         VirtualThreadMaskGenerator virtualThread3MaskGenerator = new VirtualThreadMaskGenerator(container);
 
-        Set<List<Mask>> masks = virtualThread3MaskGenerator.generate();
+        Set<List<MaskType>> masks = virtualThread3MaskGenerator.generate(); //todo извлекать Mask а не MaskType
         System.out.println(masks);
         System.out.println(masks.size());
 

@@ -1,19 +1,15 @@
 package ru.golovin.sbf.mask;
 
-public enum Mask {
+import lombok.Builder;
+import lombok.Data;
 
-    /**
-     * Маска ключевых слов. Которые будут обрабатываться в реальном времени
-     */
-    KEY_WORD,
+import java.util.Set;
 
-    /**
-     * Словарь заранее сгенерированных всех возможных последовательностей ограниченной длины
-     */
-    SPECIAL,
+@Data
+@Builder
+public class Mask {
 
-    /**
-     * Словарь слабых паролей
-     */
-    DICTIONARY
+    private MaskType maskType;
+    private Set<KeyWordOption> keyWordOptions;
+    private SpecialOption specialBlockSize;
 }

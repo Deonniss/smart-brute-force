@@ -13,17 +13,17 @@ public enum KeyWordOption {
     SHORT,
 
     /**
-     * Внедрение масок {@link Mask#SPECIAL} между символами масок {@link Mask#KEY_WORD}
+     * Внедрение масок {@link MaskType#SPECIAL} между символами масок {@link MaskType#KEY_WORD}
      */
     INJECT,
 
     /**
-     * Инверсия {@link Mask#KEY_WORD}
+     * Инверсия {@link MaskType#KEY_WORD}
      */
     INVERSION,
 
     /**
-     * Подмена символов из {@link Mask#KEY_WORD} подходящими символами (i=!, o = 0, s = $)
+     * Подмена символов из {@link MaskType#KEY_WORD} подходящими символами (i=!, o = 0, s = $)
      */
     REPLACE
 }

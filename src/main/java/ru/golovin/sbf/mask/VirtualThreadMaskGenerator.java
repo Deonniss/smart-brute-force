@@ -18,23 +18,23 @@ public class VirtualThreadMaskGenerator implements MaskGenerator {
     private final MaskGenerationOptionContainer optionContainer;
 
     @Override
-    public Set<List<Mask>> generate() {
+    public Set<List<MaskType>> generate() {
         List<Integer> keyWordCounts = getAllowedCounts(optionContainer.getKeyWordBlockAmount());
         List<Integer> specialCounts = getAllowedCounts(optionContainer.getSpecialBlockAmount());
         List<Integer> dictionaryCounts = getAllowedCounts(optionContainer.getDictionaryBlockAmount());
-        Set<List<Mask>> allPermutations = ConcurrentHashMap.newKeySet();
+        Set<List<MaskType>> allPermutations = ConcurrentHashMap.newKeySet();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
         for (int keyWordCount : keyWordCounts) {
             for (int specialCount : specialCounts) {
                 for (int dictionaryCount : dictionaryCounts) {
                     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                        List<Mask> masks = new ArrayList<>();
-                        masks.addAll(Collections.nCopies(keyWordCount, Mask.KEY_WORD));
-                        masks.addAll(Collections.nCopies(specialCount, Mask.SPECIAL));
-                        masks.addAll(Collections.nCopies(dictionaryCount, Mask.DICTIONARY));
-                        Set<List<Mask>> permutations = new HashSet<>();
-                        permuteUniqueIterative(masks, permutations, Comparator.comparing(Mask::toString));
+                        List<MaskType> maskTypes = new ArrayList<>();
+                        maskTypes.addAll(Collections.nCopies(keyWordCount, MaskType.KEY_WORD));
+                        maskTypes.addAll(Collections.nCopies(specialCount, MaskType.SPECIAL));
+                        maskTypes.addAll(Collections.nCopies(dictionaryCount, MaskType.DICTIONARY));
+                        Set<List<MaskType>> permutations = new HashSet<>();
+                        permuteUniqueIterative(maskTypes, permutations, Comparator.comparing(MaskType::toString));
                         allPermutations.addAll(permutations);
                     }, VIRTUAL_EXECUTOR);
                     futures.add(future);
@@ -57,14 +57,14 @@ public class VirtualThreadMaskGenerator implements MaskGenerator {
                 .toList();
     }
 
-    private void permuteUniqueIterative(List<Mask> list, Set<List<Mask>> result, Comparator<Mask> comparator) {
+    private void permuteUniqueIterative(List<MaskType> list, Set<List<MaskType>> result, Comparator<MaskType> comparator) {
         list.sort(comparator);
         do {
             result.add(new ArrayList<>(list));
         } while (nextPermutation(list, comparator));
     }
 
-    private boolean nextPermutation(List<Mask> list, Comparator<Mask> comparator) {
+    private boolean nextPermutation(List<MaskType> list, Comparator<MaskType> comparator) {
         int n = list.size();
         int i = n - 1;
         while (i > 0 && comparator.compare(list.get(i - 1), list.get(i)) >= 0) {

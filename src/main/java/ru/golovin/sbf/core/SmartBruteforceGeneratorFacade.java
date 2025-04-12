@@ -3,7 +3,7 @@ package ru.golovin.sbf.core;
 import lombok.RequiredArgsConstructor;
 import ru.golovin.sbf.mask.Mask;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -13,11 +13,12 @@ public class SmartBruteforceGeneratorFacade implements BruteforceGeneratorFacade
     private final BruteforceGenerator generator;
 
     @Override
-    public List<String> generate(Set<List<Mask>> masks) {
-        List<String> result = new ArrayList<>();
+    public boolean generate(Set<List<Mask>> masks, String target) throws IOException {
         for (List<Mask> mask : masks) {
-            result.addAll(generator.generate(mask));
+            if (generator.generate(mask, target)) {
+                return true;
+            }
         }
-        return result;
+        return false;
     }
 }

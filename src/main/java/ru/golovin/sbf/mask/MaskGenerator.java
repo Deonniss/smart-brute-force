@@ -5,5 +5,5 @@ import java.util.Set;
 
 public interface MaskGenerator {
 
-    Set<List<Mask>> generate();
+    Set<List<MaskType>> generate();
 }
