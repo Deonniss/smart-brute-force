@@ -1,4 +1,6 @@
-package ru.golovin.sbf.core.gpu.aparapi;
+package ru.golovin.sbf.core.gpu.aparapi.util;
+
+import ru.golovin.sbf.core.gpu.aparapi.GpuAparapiBruteforceParamContainer;
 
 import java.io.IOException;
 import java.nio.file.Files;

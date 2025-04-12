@@ -2,6 +2,9 @@ package ru.golovin.sbf.core.gpu.aparapi;
 
 import com.aparapi.Range;
 import me.tongfei.progressbar.ProgressBar;
+import ru.golovin.sbf.core.gpu.aparapi.kernel.GpuAparapiBruteforceKernel;
+import ru.golovin.sbf.core.gpu.aparapi.kernel.GpuAparapiBruteforceKernelFactory;
+import ru.golovin.sbf.core.gpu.aparapi.util.GpuAparapiBruteforceParamContainerUtilCreator;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +17,14 @@ public class GpuAparapiBruteforceKernelExecutor {
     public static void main(String[] args) throws IOException {
         start(
                 GpuAparapiBruteforceParamContainerUtilCreator.getParamContainer(
-                        List.of("dictionary/spec-2.lst", "dictionary/spec-2.lst", "dictionary/spec-2.lst"),
-                        "AAA"
+                        List.of(
+                                "dictionary/spec-2.lst",
+                                "dictionary/spec-1.lst",
+                                "dictionary/spec-1.lst",
+                                "dictionary/spec-1.lst",
+                                "dictionary/spec-1.lst"
+                        ),
+                        "1P]5*x"
                 )
         );
     }
