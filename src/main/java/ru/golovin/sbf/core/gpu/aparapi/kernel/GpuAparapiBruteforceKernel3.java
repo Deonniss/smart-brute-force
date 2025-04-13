@@ -69,16 +69,16 @@ public class GpuAparapiBruteforceKernel3 extends GpuAparapiBruteforceKernel {
         if (len1 + len2 + len3 != targetLength) return;
 
         boolean match = true;
-        for (int x = 0; x < len1; x++) {
+        for (int x = 0; x < len1 && match; x++) {
             match = match && (file1[i * file1MaxLength + x] == target[x]);
         }
         if (match) {
-            for (int x = 0; x < len2; x++) {
+            for (int x = 0; x < len2 && match; x++) {
                 match = match && (file2[j * file2MaxLength + x] == target[len1 + x]);
             }
         }
         if (match) {
-            for (int x = 0; x < len3; x++) {
+            for (int x = 0; x < len3 && match; x++) {
                 match = match && (file3[k * file3MaxLength + x] == target[len1 + len2 + x]);
             }
         }

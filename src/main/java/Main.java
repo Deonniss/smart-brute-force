@@ -1,14 +1,16 @@
 import ru.golovin.sbf.core.BruteforceGeneratorFacade;
 import ru.golovin.sbf.core.SmartBruteforceGenerator;
 import ru.golovin.sbf.core.SmartBruteforceGeneratorFacade;
+import ru.golovin.sbf.core.gpu.aparapi.GpuAparapiBruteforceKernelExecutor;
 import ru.golovin.sbf.mask.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         MaskGenerationOptionContainer container = MaskGenerationOptionContainer.builder()
                 .keyWordBlockAmount(
@@ -20,7 +22,7 @@ public class Main {
                 )
                 .specialBlockAmount(
                         MaskGenerationOption.builder()
-                                .fix(-1)
+                                .fix(1)
                                 .max(0)
                                 .min(0)
                                 .build()
@@ -32,23 +34,25 @@ public class Main {
                                 .min(0)
                                 .build()
                 )
-                .options(Set.of(KeyWordOption.INJECT))
                 .build();
 
         VirtualThreadMaskGenerator virtualThread3MaskGenerator = new VirtualThreadMaskGenerator(container);
 
-        Set<List<MaskType>> masks = virtualThread3MaskGenerator.generate(); //todo извлекать Mask а не MaskType
+        Set<List<MaskType>> masks = virtualThread3MaskGenerator.generate();
         System.out.println(masks);
         System.out.println(masks.size());
 
-
         BruteforceGeneratorFacade bruteforceGeneratorFacade = new SmartBruteforceGeneratorFacade(
-                new SmartBruteforceGenerator()
+                new SmartBruteforceGenerator(new GpuAparapiBruteforceKernelExecutor())
         );
-        List<String> result = bruteforceGeneratorFacade.generate(masks);
+        boolean result = bruteforceGeneratorFacade.generate(
+                masks,
+                Option.builder()
+                        .keyWordOptions(Set.of(KeyWordOption.INJECT))
+                        .specialBlockSize(SpecialOption.THREE)
+                        .build(),
+                "qwerty123"
+        );
         System.out.println(result);
-        System.out.println(result.size());
-
-
     }
 }

@@ -1,6 +1,7 @@
 package ru.golovin.sbf.core;
 
-import ru.golovin.sbf.mask.Mask;
+import ru.golovin.sbf.mask.MaskType;
+import ru.golovin.sbf.mask.Option;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,9 +9,12 @@ import java.util.List;
 public interface BruteforceGenerator {
 
     /**
-     * @param maskTypes маски паролей, состоящие из блоков
+     *
+     * @param masks маски паролей, состоящие из блоков
+     * @param option настройки для типов блоков масок
      * @param target искомая строка
      * @return boolean - найден ли пароль
+     * @throws IOException при недоступности словарей
      */
-    boolean generate(List<Mask> masks, String target) throws IOException;
+    boolean generate(List<MaskType> masks, Option option, String target) throws IOException;
 }

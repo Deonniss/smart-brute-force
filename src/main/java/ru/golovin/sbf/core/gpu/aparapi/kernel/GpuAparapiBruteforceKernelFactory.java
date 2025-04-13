@@ -8,6 +8,10 @@ public final class GpuAparapiBruteforceKernelFactory {
 
     public static GpuAparapiBruteforceKernel create(GpuAparapiBruteforceParamContainer c) {
         return switch (c.getFileCount()) {
+            case 1 -> new GpuAparapiBruteforceKernel1(
+                    c.getFileCharArrays().get(0), c.getFileLengths().get(0), c.getFileMaxLengths().get(0), c.getFileLineLengths().get(0),
+                    c.getTarget().toCharArray(), c.getTarget().length(), c.getResult()
+            );
             case 2 -> new GpuAparapiBruteforceKernel2(
                     c.getFileCharArrays().get(0), c.getFileLengths().get(0), c.getFileMaxLengths().get(0), c.getFileLineLengths().get(0),
                     c.getFileCharArrays().get(1), c.getFileLengths().get(1), c.getFileMaxLengths().get(1), c.getFileLineLengths().get(1),
